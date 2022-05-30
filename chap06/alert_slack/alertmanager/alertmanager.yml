@@ -11,7 +11,7 @@ route:
 receivers:
   - name: 'slack'
     slack_configs:
-  - api_url: https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX
+      - api_url: https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX
 inhibit_rules:
   - source_match:
       severity: 'critical'
