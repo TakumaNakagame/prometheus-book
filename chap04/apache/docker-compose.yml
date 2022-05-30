@@ -1,0 +1,24 @@
+---
+version: '3'
+services:
+  prometheus:
+    image: prom/prometheus:v2.33.3
+    ports:
+      - '9090:9090'
+    volumes:
+      - './prometheus.yml:/etc/prometheus/prometheus.yml'
+    command:
+      --web.enable-lifecycle
+      --config.file=/etc/prometheus/prometheus.yml
+  httpd:
+    image: httpd:2.4
+    ports:
+      - '80:80'
+    volumes:
+      - './httpd.conf:/usr/local/apache2/conf/httpd.conf'
+  apache_exporter:
+    image: bitnami/apache-exporter:0.8.0
+    ports:
+      - '9117:9117'
+    command:
+      --scrape_uri="http://httpd/server-status/?auto"

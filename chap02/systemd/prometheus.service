@@ -1,0 +1,13 @@
+[Unit]
+Description=prometheus-stack
+
+[Service]
+ExecStart=/usr/local/bin/docker-compose -p prometheus-stack -f /opt/prometheus-stack/docker-compose.yml up
+ExecStop=/usr/local/bin/docker-compose -p prometheus-stack -f /opt/prometheus-stack/docker-compose.yml down -v
+ExecReload=/usr/local/bin/docker-compose -p prometheus-stack -f /opt/prometheus-stack/docker-compose.yml restart
+Restart=always
+
+Type=simple
+
+[Install]
+WantedBy=multi-user.target

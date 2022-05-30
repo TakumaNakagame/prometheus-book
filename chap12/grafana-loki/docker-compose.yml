@@ -1,0 +1,38 @@
+---
+version: '3'
+services:
+  prometheus:
+    image: prom/prometheus:v2.33.3
+    ports:
+      - '9090:9090'
+    volumes:
+      - './prometheus.yml:/etc/prometheus/prometheus.yml'
+    command:
+      --web.enable-lifecycle
+      --config.file=/etc/prometheus/prometheus.yml
+
+  loki:
+    image: grafana/loki:2.4.1
+    ports:
+      - '3100:3100'
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - loki
+
+  promtail:
+    image: grafana/promtail:2.4.1
+    volumes:
+      - /var/log:/var/log
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - loki
+
+  grafana:
+    image: grafana/grafana:8.3.6
+    ports:
+      - '3000:3000'
+    networks:
+      - loki
+
+networks:
+  loki: {}

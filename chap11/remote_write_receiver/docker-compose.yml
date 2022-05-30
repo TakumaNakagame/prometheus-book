@@ -1,0 +1,27 @@
+---
+version: '3'
+services:
+  prom-src:
+    container_name: prometheus-src
+    image: prom/prometheus:v2.33.3
+    ports:
+      - '9091:9090'
+    volumes:
+      - './prometheus-src.yml:/etc/prometheus/prometheus.yml'
+    command:
+      --config.file=/etc/prometheus/prometheus.yml
+  prom-dst:
+    container_name: prometheus-dst
+    image: prom/prometheus:v2.33.3
+    ports:
+      - '9092:9090'
+    volumes:
+      - './prometheus-dst.yml:/etc/prometheus/prometheus.yml'
+    command:
+      --web.enable-remote-write-receiver
+      --config.file=/etc/prometheus/prometheus.yml
+  node-exporter:
+    container_name: node-exporter
+    image: prom/node-exporter:v1.3.1
+    ports:
+      - '9100:9100'

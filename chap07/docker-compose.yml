@@ -1,0 +1,23 @@
+---
+version: '3'
+services:
+  prometheus:
+    image: prom/prometheus:v2.33.3
+    ports:
+      - '9090:9090'
+    volumes:
+      - './prometheus/prometheus.yml:/etc/prometheus/prometheus.yml'
+    command:
+      --web.enable-lifecycle
+      --config.file=/etc/prometheus/prometheus.yml
+  node-exporter:
+    image: prom/node-exporter:v1.3.1
+    hostname: prometheus-book
+    ports:
+      - '9100:9100'
+  grafana:
+    image: grafana/grafana:8.3.6
+    ports:
+      - 3000:3000
+    volumes:
+      - ./grafana/data:/var/lib/grafana

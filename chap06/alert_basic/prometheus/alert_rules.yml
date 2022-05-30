@@ -1,0 +1,11 @@
+---
+groups:
+  - name: example
+    rules:
+      - alert: Target Down
+        expr: up == 0
+        for: 10s
+        labels:
+          severity: critical
+        annotations:
+          summary: Prometheus Target Down

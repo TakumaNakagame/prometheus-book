@@ -1,0 +1,13 @@
+---
+version: '3'
+services:
+  prometheus:
+    image: prom/prometheus:v2.33.3
+    ports:
+      - '9090:9090'
+    volumes:
+      - './prometheus.yml:/etc/prometheus/prometheus.yml'
+  alertmanager:
+    image: prom/alertmanager:v0.23.0
+    ports:
+      - '9093:9093'

@@ -1,0 +1,12 @@
+---
+version: '3'
+services:
+  prometheus:
+    image: prom/prometheus:v2.33.3
+    ports:
+      - '9090:9090'
+    volumes:
+      - './prometheus.yml:/etc/prometheus/prometheus.yml'
+      - '$HOME/.config/gcloud/application_default_credentials.json:/prometheus/credentials/gcp.json'
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/prometheus/credentials/gcp.json

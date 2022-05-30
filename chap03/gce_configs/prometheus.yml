@@ -1,0 +1,15 @@
+---
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ["localhost:9090"]
+  - job_name: 'gce_instance'
+    gce_sd_configs:
+      - project: 'promethues-book'
+        zone: us-central1-f
+      - project: 'promethues-book'
+        zone: us-west1-c

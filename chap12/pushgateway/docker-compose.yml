@@ -1,0 +1,16 @@
+---
+version: '3'
+services:
+  prometheus:
+    image: prom/prometheus:v2.33.3
+    ports:
+      - '9090:9090'
+    volumes:
+      - './prometheus.yml:/etc/prometheus/prometheus.yml'
+    command:
+      --web.enable-lifecycle
+      --config.file=/etc/prometheus/prometheus.yml
+  pushgateway:
+    image: prom/pushgateway:v1.4.2
+    ports:
+      - '9091:9091'

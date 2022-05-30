@@ -1,0 +1,22 @@
+---
+version: '3'
+services:
+  prometheus:
+    image: prom/prometheus:v2.33.3
+    ports:
+      - '9090:9090'
+    volumes:
+      - './prometheus.yml:/etc/prometheus/prometheus.yml'
+    command:
+      --web.enable-lifecycle
+      --config.file=/etc/prometheus/prometheus.yml
+  node-exporter:
+    image: prom/node-exporter:v1.3.1
+    ports:
+      - '9100:9100'
+  blackbox-exporter:
+    image: prom/blackbox-exporter:v0.19.0
+    ports:
+      - '9115:9115'
+    volumes:
+      - ./blackbox.yml:/etc/blackbox_exporter/config.yml

@@ -1,0 +1,26 @@
+---
+version: '3'
+services:
+  prometheus:
+    image: prom/prometheus:v2.33.3
+    ports:
+      - '9090:9090'
+    volumes:
+      - './prometheus.yml:/etc/prometheus/prometheus.yml'
+    command:
+      --web.enable-lifecycle
+      --config.file=/etc/prometheus/prometheus.yml
+  mysql:
+    image: mysql:8.0.23
+    ports:
+      - '3306:3306'
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d
+  mysql_exporter:
+    image: prom/mysqld-exporter:v0.12.1
+    ports:
+      - '9104:9104'
+    environment:
+      - DATA_SOURCE_NAME=exporter:password@(mysql:3306)/
